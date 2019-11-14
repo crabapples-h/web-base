@@ -12,7 +12,7 @@ import javax.validation.Validator;
 import java.util.Set;
 
 /**
- * TODO 基础Controller，其他controller请继承此类
+ * TODO 基础Controller，其他controller请继承此类(附带属性验证工具)
  *
  * @author Mr.He
  * @date 2019/9/21 18:28

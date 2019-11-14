@@ -1,5 +1,9 @@
 package cn.crabapples.utils;
 
+import cn.crabapples.exception.ApplicationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.crypto.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +12,7 @@ import java.security.Key;
 import java.security.SecureRandom;
 
 /**
- * TODO AES加密文件演示
+ * TODO AES加密文件工具
  *
  * @author Mr.He
  * @date 2019/8/5 21:37
@@ -17,10 +21,7 @@ import java.security.SecureRandom;
  * pc-name 29404
  */
 public class AesFileUtils {
-    /**
-     * 用于生成密钥的种子
-     */
-    private static final String KEY = "123456";
+    private static final Logger LOGGER = LoggerFactory.getLogger(AesFileUtils.class);
 
     /**
      * 用于将密钥种子转换为KEY
@@ -100,7 +101,7 @@ public class AesFileUtils {
                 /**
                  * 当输入的类型不匹配加/解密时抛出异常
                  */
-                throw new RuntimeException("please input type");
+                throw new ApplicationException("please input type");
             }
             if (null != fileInputStream) {
                 fileInputStream.close();
@@ -110,6 +111,7 @@ public class AesFileUtils {
             }
             return targetFile.getAbsolutePath();
         }catch (Exception e){
+            LOGGER.error("出现错误:[{}]",e.getMessage());
             throw e;
         }
     }

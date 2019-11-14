@@ -13,18 +13,8 @@ import javax.validation.constraints.NotBlank;
  * pc-name 29404
  */
 public class BaseDTO {
-    @NotBlank(message = "服务id不能为空")
-    private String code;
     @NotBlank(message = "时间戳不能为空")
     private String timeStamp;
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getTimeStamp() {
         return timeStamp;

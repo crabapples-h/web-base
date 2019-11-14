@@ -12,12 +12,13 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 /**
- * 
- * HeQuan
- * PC-name 29404
- * @author Wishfor_you@foxmail.com
- * 2018年10月12日 下午9:27:07
+ * TODO Web静态资源配置
  *
+ * @author Mr.He
+ * @date 2019/11/14 21:20
+ * e-mail wishforyou.xia@gmail.com
+ * qq 294046317
+ * pc-name 29404
  */
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport{

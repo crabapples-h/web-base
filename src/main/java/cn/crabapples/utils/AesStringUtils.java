@@ -1,5 +1,9 @@
 package cn.crabapples.utils;
 
+import cn.crabapples.exception.ApplicationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -8,15 +12,12 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 /**
- * AES加密演示
+ * AES加密字符串
  * @author wishforyou.xia@gmail.com
  * @date 2019/7/3 23:24
  */
 public class AesStringUtils {
-    /**
-     * 用于生成密钥的种子
-     */
-    private static final String KEY = "123456";
+    private static final Logger LOGGER = LoggerFactory.getLogger(AesStringUtils.class);
 
     /**
      * 用于将密钥种子转换为KEY
@@ -70,9 +71,10 @@ public class AesStringUtils {
                 /**
                  * 当输入的类型不匹配加/解密时抛出异常
                  */
-                throw new RuntimeException("please input type");
+                throw new ApplicationException("please input type");
             }
         }catch (Exception e){
+            LOGGER.error("出现错误:[{}]",e.getMessage());
             throw e;
         }
     }

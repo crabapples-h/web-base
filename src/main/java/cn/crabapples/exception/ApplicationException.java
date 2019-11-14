@@ -10,8 +10,7 @@ package cn.crabapples.exception;
  * pc-name 29404
  */
 public class ApplicationException extends RuntimeException{
-    public ApplicationException() {
-    }
+    public ApplicationException() {}
 
     public ApplicationException(String message) {
         super(message);

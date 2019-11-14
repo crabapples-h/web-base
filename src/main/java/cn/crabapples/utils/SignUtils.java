@@ -2,11 +2,13 @@ package cn.crabapples.utils;
 import java.security.MessageDigest;
 
 /**
- * 加密工具类
- * 2019年1月8日 下午2:15:52
- * @author H
  * TODO 对字符串进行加密
- * Admin
+ *
+ * @author Mr.He
+ * @date 2019/01/08 02:15
+ * e-mail wishforyou.xia@gmail.com
+ * qq 294046317
+ * pc-name 29404
  */
 public class SignUtils {
     /**

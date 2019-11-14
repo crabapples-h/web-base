@@ -13,8 +13,13 @@ import org.springframework.core.annotation.Order;
 import java.lang.reflect.Method;
 
 /**
- * @author hequan@gogpay.cn
- * @date 2019/7/19 15:14
+ * TODO 请求切面拦截
+ *
+ * @author Mr.He
+ * @date 2019/11/14 21:34
+ * e-mail wishforyou.xia@gmail.com
+ * qq 294046317
+ * pc-name 29404
  */
 @Aspect
 @Configuration
