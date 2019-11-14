@@ -3,6 +3,7 @@ package cn.crabapples.controller;
 import cn.crabapples.dto.ResponseDTO;
 import cn.crabapples.exception.ApplicationException;
 import cn.crabapples.exception.ServiceException;
+import cn.crabapples.exception.WechatServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,7 +45,7 @@ public abstract class BaseController {
      */
 //    @SuppressWarnings("rawtypes")
     @ExceptionHandler()
-//    @ResponseBody
+    @ResponseBody
     public ResponseDTO expHandle(Exception e) {
         e.printStackTrace();
         return ResponseDTO.returnErrorResponse(e.getMessage());
@@ -52,8 +53,14 @@ public abstract class BaseController {
 
 //    @SuppressWarnings("rawtypes")
     @ExceptionHandler()
-//    @ResponseBody
+    @ResponseBody
     public String expHandle(ServiceException e) {
+        e.printStackTrace();
+        return e.getMessage();
+    }
+
+    @ExceptionHandler()
+    public ResponseDTO<> expHandle(WechatServiceException e) {
         e.printStackTrace();
         return e.getMessage();
     }
