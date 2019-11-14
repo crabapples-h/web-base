@@ -1,24 +1,39 @@
 package cn.crabapples.controller;
 
 import cn.crabapples.dto.ResponseDTO;
-import cn.crabapples.commons.BeanValidatorUtils;
+import cn.crabapples.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.management.ServiceNotFoundException;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
 
 /**
- * TODO 基础Controller
+ * TODO 基础Controller，其他controller请继承此类
  *
  * @author Mr.He
- * @date 2019/7/19 0:29
+ * @date 2019/9/21 18:28
  * e-mail wishforyou.xia@gmail.com
+ * qq 294046317
  * pc-name 29404
  */
-public class BaseController {
+public abstract class BaseController {
     @Autowired
-    protected BeanValidatorUtils beanValidatorUtils;
+    private Validator validator;
+
+    /**
+     * 属性校验的方法
+     * @param object
+     */
+    protected <T> void validator(Object object,Class<T> ... groups){
+        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object,groups);
+        for (ConstraintViolation constraintViolation : constraintViolations ) {
+            throw new ApplicationException(constraintViolation.getMessageTemplate());
+        }
+    }
 
     /**
      * Exception异常处理
@@ -26,7 +41,7 @@ public class BaseController {
      * @param e 捕获到的异常
      * @return 返回一个通用DTO
      */
-    @SuppressWarnings("rawtypes")
+//    @SuppressWarnings("rawtypes")
     @ExceptionHandler()
     @ResponseBody
     public ResponseDTO expHandle(Exception e) {
@@ -34,51 +49,11 @@ public class BaseController {
         return ResponseDTO.returnErrorResponse(e.getMessage());
     }
 
-    @SuppressWarnings("rawtypes")
+//    @SuppressWarnings("rawtypes")
     @ExceptionHandler()
     @ResponseBody
     public String expHandle(ServiceNotFoundException e) {
         e.printStackTrace();
         return e.getMessage();
     }
-
-//    /**
-//     * UnauthorizedException权限认证失败异常
-//     *
-//     * @param e
-//     * @return
-//     */
-//    @SuppressWarnings("rawtypes")
-//    @ExceptionHandler()
-//    @ResponseBody
-//    public ResponseDTO expHandle(UnauthorizedException e) {
-//        e.printStackTrace();
-//        return ResponseDTO.returnUnauthorizedExceptionResponse("该操作未授权，操作失败，请联系超级管理员！");
-//    }
-
-//    /**
-//     * ExpiredSessionException session 过期
-//     *
-//     * @param e
-//     * @return
-//     */
-//    @ExceptionHandler()
-//    @ResponseBody
-//    public ResponseDTO ExpiredSessionException(ExpiredSessionException e) {
-//        e.printStackTrace();
-//        return ResponseDTO.returnUnauthorizedExceptionResponse("该操作未授权，操作失败，请联系超级管理员！");
-//    }
-
-//    /**
-//     * 自定义异常处理
-//     *
-//     * @param e
-//     * @return
-//     */
-//    @ExceptionHandler()
-//    @ResponseBody
-//    public ResponseDTO<Object> appException(AppException e) {
-//        e.printStackTrace();
-//        return ResponseDTO.returnErrorResponse(e.getMessage());
-//    }
 }

@@ -1,5 +1,8 @@
 package cn.crabapples.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,7 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class HttpRequest {
+public class HttpRequestUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpRequestUtils.class);
     private static String sendPost(String url, String param) {
         PrintWriter out = null;
         BufferedReader in = null;
@@ -32,7 +36,7 @@ public class HttpRequest {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("发送 POST 请求出现异常！" + e);
+            LOGGER.error("发送POST请求出现异常！参数:[]", e);
             e.printStackTrace();
         } finally {
             try {
@@ -66,8 +70,9 @@ public class HttpRequest {
 
     public static String sendRequest(String txtUrl, Map map) {
         Map<String, String> param = getParam(txtUrl, map);
-        System.out.println(param.get("allUrl"));
-        String sr = HttpRequest.sendPost(param.get("url"), param.get("param"));
-        return sr;
+        LOGGER.debug("发送请求,参数:[{}]", param);
+        String result = sendPost(param.get("url"), param.get("param"));
+        LOGGER.debug("请求结束,返回值:[{}]", result);
+        return result;
     }
 }

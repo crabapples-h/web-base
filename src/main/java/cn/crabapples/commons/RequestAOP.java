@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 @Configuration
 @Order(50)
 public class RequestAOP {
-    private static final Logger logger = LoggerFactory.getLogger(RequestAOP.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestAOP.class);
     private static final String BASE_AOP = "execution(* cn.crabapples.*.controller.*.*(..))";
     private static final String ALL_AOP = "execution(* *.*.*.controller.*.*(..))";
     @Pointcut(BASE_AOP)
@@ -30,22 +30,22 @@ public class RequestAOP {
 
     @Around("baseAop()")
     Object baseAop(ProceedingJoinPoint join) throws Throwable {
-        logger.info("baseAop拦截成功");
+        LOGGER.debug("baseAop拦截成功");
         Object[] args = join.getArgs();
         for (Object arg : args) {
-            logger.info("请求参数:【{}】",arg);
+            LOGGER.debug("请求参数:【{}】",arg);
         }
         Object obj = join.proceed();
-        logger.info("返回值:【{}】",obj);
+        LOGGER.debug("返回值:【{}】",obj);
         MethodSignature methodSignature = (MethodSignature) join.getSignature();
         Method method = methodSignature.getMethod();
-        logger.info("被调用的方法:【{}】",method);
+        LOGGER.debug("被调用的方法:【{}】",method);
         return obj;
     }
 
     @Around("allAop()")
     Object allAop(ProceedingJoinPoint join) throws Throwable {
-        logger.info("allAop拦截成功");
+        LOGGER.debug("allAop拦截成功");
         return join.proceed();
     }
 }
