@@ -21,6 +21,7 @@ public abstract class BaseEntity {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(length = 64)
     private String id;
     @Column(columnDefinition = "bit(1) default 0 comment '删除标记 0:正常，1:删除'")
     private int deleteFlag;

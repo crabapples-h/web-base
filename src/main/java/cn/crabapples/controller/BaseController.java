@@ -59,9 +59,4 @@ public abstract class BaseController {
         return e.getMessage();
     }
 
-    @ExceptionHandler()
-    public ResponseDTO<> expHandle(WechatServiceException e) {
-        e.printStackTrace();
-        return e.getMessage();
-    }
 }
