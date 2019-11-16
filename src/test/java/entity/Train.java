@@ -1,5 +1,14 @@
-package entryTest;
+package entity;
 
+/**
+ * TODO 12306请求字段
+ *
+ * @author Mr.He
+ * @date 2019/11/17 3:37
+ * e-mail wishforyou.xia@gmail.com
+ * qq 294046317
+ * pc-name 29404
+ */
 public class Train {
 	private String id;
 	private String status;

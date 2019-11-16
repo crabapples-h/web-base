@@ -1,5 +1,3 @@
-package utilTest;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,14 +12,22 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import entity.EntryData;
+import entity.Train;
 import org.junit.Test;
 
 import com.google.gson.Gson;
 
-import entryTest.EntryData;
-import entryTest.Train;
-
-public class TestCase {
+/**
+ * TODO 火车票查询测试类
+ *
+ * @author Mr.He
+ * @date 2019/11/17 3:36
+ * e-mail wishforyou.xia@gmail.com
+ * qq 294046317
+ * pc-name 29404
+ */
+public class TrainTest {
 	public int CONN_TIMEOUT = 30000;	//链接超时时间
 	public int READ_TIMEOUT = 30000;	//响应超时时间
 	public String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";	//请求头

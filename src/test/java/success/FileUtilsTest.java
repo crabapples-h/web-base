@@ -1,3 +1,5 @@
+package success;
+
 import cn.crabapples.utils.file.FileUtils;
 import org.apache.http.entity.ContentType;
 import org.junit.Test;

@@ -1,5 +1,3 @@
-package utilTest;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -26,8 +24,16 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 
-
-public class TestCase3 {
+/**
+ * TODO https测试类
+ *
+ * @author Mr.He
+ * @date 2019/11/17 3:35
+ * e-mail wishforyou.xia@gmail.com
+ * qq 294046317
+ * pc-name 29404
+ */
+public class HttpsRequestTest {
 	public int CONN_TIMEOUT = 50000;	//链接超时时间
 	public int READ_TIMEOUT = 50000;	//响应超时时间
 	public String userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.26 Safari/537.36 Core/1.63.6799.400 QQBrowser/10.3.2908.400";	//请求头
@@ -61,7 +67,7 @@ public class TestCase3 {
 		conn.setDoInput(true);
 		conn.setRequestProperty("Accept", "application/json, text/javascript, */*; q=0.01");
 		conn.setRequestProperty("Content-type", "application/json; charset=utf-8");
-		conn.setRequestProperty("User-Agent", userAgent);
+		conn.setRequestProperty("entity.User-Agent", userAgent);
 		InputStream in = conn.getInputStream();
 		BufferedInputStream bis = new BufferedInputStream(in);
 		FileOutputStream fos = new FileOutputStream(file);
@@ -92,7 +98,7 @@ public class TestCase3 {
 		conn.setDoInput(true);
 		conn.setRequestProperty("Accept", "application/json, text/javascript, */*; q=0.01");
 		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-		conn.setRequestProperty("User-Agent", userAgent);
+		conn.setRequestProperty("entity.User-Agent", userAgent);
 
 		pw = new PrintWriter(conn.getOutputStream());
 		pw.println(data);
