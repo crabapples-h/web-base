@@ -1,4 +1,5 @@
-package cn.crabapples.utils;//package cn.alittlelove.eurekaclientwechat;
+package cn.crabapples.utils;
+//package cn.alittlelove.eurekaclientwechat;
 //
 //
 //import java.io.File;

@@ -1,4 +1,4 @@
-package cn.crabapples.utils;
+package cn.crabapples.utils.net;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -22,36 +22,41 @@ import java.util.Set;
  * qq 294046317
  * pc-name 29404
  */
-public class HttpRequestUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpRequestUtils.class);
+public class HttpUtilsV1 {
+    private static final Logger logger = LoggerFactory.getLogger(HttpUtilsV1.class);
+
     /**
-     * 发送POST请求
+     * 发送请求
      * @param url url
      * @param param 参数
-     * @return 返回结果
+     * @param method 请求方式
+     * @return 回结果
      */
-    private static String sendPost(String url, String param) {
+    private static String sendRequest(String url, String param, String method) {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
         try {
             URL realUrl = new URL(url);
-            URLConnection conn = realUrl.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            out = new PrintWriter(conn.getOutputStream());
-            out.print(param);
-            out.flush();
+            conn.setRequestMethod(method);
+            if(null != param) {
+                out = new PrintWriter(conn.getOutputStream());
+                out.print(param);
+                out.flush();
+            }
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;
             }
         } catch (Exception e) {
-            LOGGER.error("发送POST请求出现异常！参数:[]", e);
+            logger.error("发送POST请求出现异常！参数:[]", e);
             e.printStackTrace();
         } finally {
             try {
@@ -74,8 +79,8 @@ public class HttpRequestUtils {
      * @param paramMap 需要传递的参数
      * @return 拼接之后的参数
      */
-    private static Map<String, String> getParam(String url, Map<String, String> paramMap) {
-        LOGGER.debug("开始拼接参数:[{}],[{}]",url,paramMap);
+    private static Map<String, String> getParam(String url, Map<String, Object> paramMap) {
+        logger.debug("开始拼接参数:[{}],[{}]",url,paramMap);
         Set<String> keySet = paramMap.keySet();
         String param = "";
         for (String string : keySet) {
@@ -87,21 +92,57 @@ public class HttpRequestUtils {
         par.put("url", url);
         par.put("param", param);
         par.put("allUrl", allUrl);
-        LOGGER.debug("参数拼接完成:[{}],",par);
+        logger.debug("参数拼接完成:[{}],",par);
         return par;
     }
 
     /**
      * 发送POST请求
-     * @param txtUrl url
+     * @param url url
      * @param map 参数
      * @return 返回结果
      */
-    public static String sendPostRequest(String txtUrl, Map map) {
-        Map<String, String> param = getParam(txtUrl, map);
-        LOGGER.debug("发送请求,参数:[{}]", param);
-        String result = sendPost(param.get("url"), param.get("param"));
-        LOGGER.debug("请求结束,返回值:[{}]", result);
+    public static String postRequest(String url, Map map) {
+        Map<String, String> param = getParam(url, map);
+        logger.debug("发送请求,url:[{}],参数:[{}]", url,param);
+        String result = sendRequest(param.get("url"), param.get("param"),"POST");
+        logger.debug("请求结束,返回值:[{}]", result);
+        return result;
+    }
+ /**
+     * 发送POST请求
+     * @param url url
+     * @return 返回结果
+     */
+    public static String postRequest(String url) {
+        logger.debug("发送请求,url:[{}]", url);
+        String result = sendRequest(url, null, "POST");
+        logger.debug("请求结束,返回值:[{}]", result);
+        return result;
+    }
+
+    /**
+     * 发送GET请求
+     * @param url url
+     * @param map 参数
+     * @return 返回结果
+     */
+    public static String getRequest(String url, Map map) {
+        Map<String, String> param = getParam(url, map);
+        logger.debug("发送请求,url:[{}],参数:[{}]", url,param);
+        String result = sendRequest(param.get("url"), param.get("param"),"GET");
+        logger.debug("请求结束,返回值:[{}]", result);
+        return result;
+    }
+    /**
+     * 发送GET请求
+     * @param url url
+     * @return 返回结果
+     */
+    public static String getRequest(String url) {
+        logger.debug("发送请求,url:[{}]", url);
+        String result = sendRequest(url, null, "GET");
+        logger.debug("请求结束,返回值:[{}]", result);
         return result;
     }
 }

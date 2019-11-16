@@ -1,4 +1,4 @@
-package cn.crabapples.utils;
+package cn.crabapples.utils.encode;
 
 import cn.crabapples.exception.ApplicationException;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import java.util.Base64;
  * @date 2019/7/3 23:24
  */
 public class AesStringUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AesStringUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(AesStringUtils.class);
 
     /**
      * 用于将密钥种子转换为KEY
@@ -74,7 +74,7 @@ public class AesStringUtils {
                 throw new ApplicationException("please input type");
             }
         }catch (Exception e){
-            LOGGER.error("出现错误:[{}]",e.getMessage());
+            logger.error("出现错误:[{}]",e.getMessage());
             throw e;
         }
     }

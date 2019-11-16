@@ -23,7 +23,7 @@ import java.util.List;
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport{
 	// 这个方法是用来配置静态资源的，比如html，js，css，等等
-	@Override    
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		 registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 		 registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/");

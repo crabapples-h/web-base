@@ -1,4 +1,4 @@
-package cn.crabapples.utils;
+package cn.crabapples.utils.encode;
 import java.security.MessageDigest;
 
 /**

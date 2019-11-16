@@ -1,4 +1,4 @@
-package cn.crabapples.utils;
+package cn.crabapples.utils.file;
 
 import cn.crabapples.exception.ApplicationException;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import java.security.SecureRandom;
  * pc-name 29404
  */
 public class AesFileUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AesFileUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(AesFileUtils.class);
 
     /**
      * 用于将密钥种子转换为KEY
@@ -111,7 +111,7 @@ public class AesFileUtils {
             }
             return targetFile.getAbsolutePath();
         }catch (Exception e){
-            LOGGER.error("出现错误:[{}]",e.getMessage());
+            logger.error("出现错误:[{}]",e.getMessage());
             throw e;
         }
     }
