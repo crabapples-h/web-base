@@ -1,27 +1,27 @@
-package cn.crabapples.utils;
-//package cn.alittlelove.eurekaclientwechat;
-//
-//
-//import java.io.File;
-//import java.util.HashMap;
-//import java.util.TreeMap;
-//
-///**
-// * HeQuan
-// * PC-name 29404
-// * @author Wishfor_you@foxmail.com
-// * 2019年3月6日 下午5:52:21
-// *
-// */
-//public class UploadFile {
-//
-//	private static final String media = "https://api.weixin.qq.com/cgi-bin/material/add_material?";
-//	public static void main(String[] args) {
+package cn.crabapples.utils.demo.wechat;
+
+
+import cn.crabapples.utils.net.HttpUtilsV2;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.TreeMap;
+
+/**
+ * HeQuan
+ * PC-name 29404
+ * @author Wishfor_you@foxmail.com
+ * 2019年3月6日 下午5:52:21
+ *
+ */
+public class WXUploadFile {
+	private static final String media = "https://api.weixin.qq.com/cgi-bin/material/add_material?";
+	public static void main(String[] args) {
 //		String token = AccessToken.getInstance();
 //		TreeMap<String,String> paramStr = new TreeMap<String,String>();
 //		paramStr.put("access_token", token);
 //		paramStr.put("type", "image");
-//		String url = media+HttpUtil.readlyParams(paramStr);
+//		String url = media + HttpUtilsV2.readlyParams(paramStr);
 //		HashMap paramFile = new HashMap<String,Object>();
 //		paramFile.put("media", new File("d:/1.png"));
 //		String result = HttpUtil2.SendHttpRequest(url, RequestMethod.POST, PRINT.PRINT, paramFile);
@@ -30,5 +30,5 @@ package cn.crabapples.utils;
 ////		String access_token = (String) resultMap.get("access_token");
 ////		System.out.println(access_token);
 //		System.out.println(token);
-//	}
-//}
+	}
+}

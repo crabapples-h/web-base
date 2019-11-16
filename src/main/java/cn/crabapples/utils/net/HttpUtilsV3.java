@@ -42,12 +42,12 @@ public class HttpUtilsV3 {
     /**
      * 发送Http请求(默认请求头)
      *
-     * @param url    发送Http请求
+     * @param url    请求地址
      * @param params 请求参数
      * @return 返回响应结果
      */
     public static String SendHttpRequest(String url, RequestMethod method, HashMap<String, ?>... params) throws IOException {
-        logger.debug("准备发送请求,url:[{}],参数[{}],请求方式[{}]", url, params, method);
+        logger.debug("即将开始发送请求(默认请求头),url:[{}],参数[{}],请求方式[{}]", url, params, method);
         String result = sendRequest(url, null, method, params);
         logger.debug("请求结束,结果:[{}]", result);
         return result;
@@ -56,13 +56,13 @@ public class HttpUtilsV3 {
     /**
      * 发送Http请求(自定义请求头)
      *
-     * @param url    发送Http请求
+     * @param url    请求地址
      * @param params 请求参数
      * @param header 请求头(若不设置则使用默认请求头)
      * @return 返回响应结果
      */
     public static String SendHttpRequest(String url, Map<String, String> header, RequestMethod method, HashMap<String, ?>... params) throws IOException {
-        logger.debug("准备发送请求,url:[{}],参数[{}],请求方式[{}],请求头:[{}]", url, params, method, header);
+        logger.debug("即将开始发送请求(自定义请求头),url:[{}],参数[{}],请求方式[{}],请求头:[{}]", url, params, method, header);
         String result = sendRequest(url, header, method, params);
         logger.debug("请求结束,结果:[{}]", result);
         return result;
@@ -77,39 +77,44 @@ public class HttpUtilsV3 {
      * @return 响应消息
      */
     private static String sendRequest(String url, Map<String, String> header, RequestMethod method, HashMap<String, ?>... params) throws IOException {
-        logger.info("准备发送请求,url:[{}],参数[{}],请求方式[{}],请求头:[{}]", url, params, method, header);
+        logger.info("开始发送请求,url:[{}],参数[{}],请求方式[{}],请求头:[{}]", url, params, method, header);
         OutputStream out = null;
         BufferedReader reader = null;
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            logger.debug("设置请求方式(默认为POST)");
             if (method == RequestMethod.GET) {
                 conn.setRequestMethod("GET");
             } else {
                 conn.setRequestMethod("POST");
             }
+            logger.debug("请求方式设置为:[{}]",conn.getRequestMethod());
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            setRequest(conn, header);
+            setRequestHeader(conn, header);
             conn.setConnectTimeout(CONN_TIMEOUT);
             conn.setReadTimeout(READ_TIMEOUT);
             out = conn.getOutputStream();
+            logger.debug("准备发送数据:[{}]", params);
             sendData(conn.getOutputStream(), params);
             out.write(("\r\n--" + boundary + "--").getBytes());
+            logger.debug("数据发送完成");
             out.flush();
             out.close();
             InputStream in = conn.getInputStream();
-            String result = "";
+            StringBuilder result = new StringBuilder();
+            logger.debug("开始接收返回值");
             reader = new BufferedReader(new InputStreamReader(in));
             while (true) {
                 String str = reader.readLine();
                 if (null == str) {
                     break;
                 }
-                result += str;
+                result.append(str);
             }
             in.close();
-            logger.info("请求结束,返回结果:[{}]", result);
-            return result;
+            logger.info("请求结束,返回结果:[{}]", result.toString());
+            return result.toString();
         } catch (IOException e) {
             logger.error("请求失败,详情:[]", e);
             throw e;
@@ -199,22 +204,22 @@ public class HttpUtilsV3 {
      * @param conn 传入需要设置请求头的HttpURLConnection
      * @return 返回设置完毕之后的HttpURLConnection
      */
-    private static HttpURLConnection setRequest(HttpURLConnection conn, Map<String, String> header) {
-		logger.debug("开始设置请求头:[{}]", header);
-		if (header == null) {
+    private static HttpURLConnection setRequestHeader(HttpURLConnection conn, Map<String, String> header) {
+        logger.debug("开始设置请求头:[{}]", header);
+        if (header == null) {
             Set<String> keySet = HEADER.keySet();
             for (String key : keySet) {
                 conn.setRequestProperty(key, HEADER.get(key));
             }
         } else {
-			logger.debug("使用默认请求头:[{}]", header);
-			Set<String> keySet = header.keySet();
+            logger.debug("使用默认请求头:[{}]", header);
+            Set<String> keySet = header.keySet();
             for (String key : keySet) {
                 conn.setRequestProperty(key, header.get(key));
             }
         }
-		logger.debug("请求头设置完毕");
-		return conn;
+        logger.debug("请求头设置完毕");
+        return conn;
     }
 
 }

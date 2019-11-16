@@ -42,7 +42,7 @@ public class HttpUtilsV2 {
      * @return 返回响应结果
      */
     public static String sendHttpRequest(String url, String params, RequestMethod method, Map<String, String>... header) throws IOException {
-        logger.debug("准备发送请求,url:[{}],参数[{}],请求方式[{}],请求头:[{}]", url, params, method, header);
+        logger.debug("即将准备发送请求,url:[{}],参数[{}],请求方式[{}],请求头:[{}]", url, params, method, header);
         Map map = new HashMap();
         Stream.of(header).forEach(e -> e.keySet().forEach(r -> map.put(r, e.get(r))));
         String result = sendRequest(url, params, method, map);
@@ -83,39 +83,45 @@ public class HttpUtilsV2 {
      * @return 响应消息
      */
     private static String sendRequest(String url, String params, RequestMethod method, Map<String, String> header) throws IOException {
-        logger.info("准备发送请求,url:[{}],参数[{}],请求方式[{}],请求头:[{}]", url, params, method, header);
+        logger.info("开始发送请求,url:[{}],参数[{}],请求方式[{}],请求头:[{}]", url, params, method, header);
         PrintWriter print = null;
         BufferedReader reader = null;
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            logger.debug("设置请求方式");
             if (method == RequestMethod.POST) {
                 conn.setRequestMethod("POST");
             } else {
                 conn.setRequestMethod("GET");
             }
+            logger.debug("请求方式设置为:[{}]",conn.getRequestMethod());
             conn.setDoOutput(true);
             conn.setDoInput(true);
             setRequestHeader(conn, header);
             conn.setConnectTimeout(CONN_TIMEOUT);
             conn.setReadTimeout(READ_TIMEOUT);
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(), "utf-8");
+            logger.debug("准备发送参数:[{}]", params);
             print = new PrintWriter(osw);
             print.print(params);
             print.flush();
             print.close();
+            logger.debug("参数发送完成");
             InputStream in = conn.getInputStream();
-            String result = "";
+            StringBuilder result = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(in));
+            logger.debug("开始接收返回值");
             while (true) {
                 String str = reader.readLine();
                 if (null == str) {
                     break;
                 }
-                result += str;
+                result.append(str);
             }
+            logger.debug("返回值接受完成:[{}]", result.toString());
             in.close();
-            logger.info("请求结束,返回结果:[{}]", result);
-            return result;
+            logger.info("请求结束,返回结果:[{}]", result.toString());
+            return result.toString();
         } catch (IOException e) {
             logger.error("请求失败,详情:[]", e);
             throw e;

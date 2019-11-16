@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+
 public class TestCase2 {
 	Map<String,Object> map = new LinkedHashMap<String,Object>();
 	User user = new User();
