@@ -25,7 +25,7 @@ public class FileUtilsTest {
      * @see cn.crabapples.utils.file.FileUtils
      * @throws IOException
      */
-    @Test
+//    @Test
     public void saveFileTest() throws IOException {
         File file = new File("D:/1.txt");
         FileInputStream fileInputStream = new FileInputStream(file);

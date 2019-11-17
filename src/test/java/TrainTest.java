@@ -34,7 +34,7 @@ public class TrainTest {
 	public String str = "https://kyfw.12306.cn/otn/leftTicket/query";
 
 
-	@Test
+//	@Test
 	public void send() throws IOException{
 		String from = "UMW";
 		String to = "GIW";

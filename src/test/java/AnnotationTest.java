@@ -23,7 +23,7 @@ public class AnnotationTest {
     private User user = new User();
     private FieldCheckUtils fieldCheckUtils = new FieldCheckUtils(checkParams);
 
-    @Before
+//    @Before
     public void init() {
         List<String> list = new ArrayList<String>();
         list.add("1");
@@ -46,7 +46,7 @@ public class AnnotationTest {
     /**
      * 根据注解进行相应验证测试
      */
-    @Test
+//    @Test
     public void entityCheckByAnnotation() throws Exception {
         boolean status = fieldCheckUtils.entityCheckByAnnotation(user, Crabapples.class);
         System.err.println("验证结果：" + status);
@@ -55,7 +55,7 @@ public class AnnotationTest {
     /**
      * 对验证数组中包含的参数名进行相应验证测试
      */
-    @Test
+//    @Test
     public void entityCheckByArray() throws Exception {
         String[] params = {"id"};
         boolean status = fieldCheckUtils.entityCheckByArray(user, params);
@@ -63,7 +63,7 @@ public class AnnotationTest {
     }
 
 
-    @Test
+//    @Test
     public void stringCheck() {
         boolean status = fieldCheckUtils.stringCheck("uNdefined");
         System.err.println("验证结果：" + status);

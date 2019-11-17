@@ -73,7 +73,7 @@ public class HttpUtilsV1 {
             }
             logger.debug("返回值接受完成:[{}]", result.toString());
         } catch (Exception e) {
-            logger.error("发送POST请求出现异常！参数:[]", e);
+            logger.error("发送[{}]请求出现异常！参数:[]", method,e);
         } finally {
             logger.debug("即将关闭输入输出流");
             try {
