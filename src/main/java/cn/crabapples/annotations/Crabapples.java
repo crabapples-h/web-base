@@ -1,5 +1,6 @@
 package cn.crabapples.annotations;
 
+import javax.validation.constraints.NotEmpty;
 import java.lang.annotation.*;
 
 /**
@@ -12,6 +13,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
+@NotEmpty
 public @interface Crabapples {
-
+    Class [] groups() default {};
 }

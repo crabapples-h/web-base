@@ -11,7 +11,7 @@ public class User {
 	private String name;
 	@Crabapples
 	private String sex;
-	@Crabapples
+	@Crabapples(groups={})
 	private List<String> interest;
 	public String getId() {
 		return id;
