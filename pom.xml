@@ -109,6 +109,17 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://repo.rdc.aliyun.com/repository/112820-release-UfUmmL/</url>
+        </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://repo.rdc.aliyun.com/repository/112820-snapshot-2VavfU/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 <!--    <build>-->
 <!--        <plugins>-->
 <!--            <plugin>-->
