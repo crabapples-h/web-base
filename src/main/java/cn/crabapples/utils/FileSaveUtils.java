@@ -1,4 +1,4 @@
-package cn.crabapples.utils.file;
+package cn.crabapples.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,17 +12,17 @@ import java.util.Date;
  * 2018年9月9日 下午4:43:47
  *
  * @author H
- * TODO 保存图片的工具
+ * TODO Http请求保存文件的工具
  * Admin
  */
-public class FileUtils {
-    private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
+public class FileSaveUtils {
+    private static final Logger logger = LoggerFactory.getLogger(FileSaveUtils.class);
 
     private String ROOT;
     /**
      * @param root 文件保存路径
      */
-    public FileUtils(String root) {
+    public FileSaveUtils(String root) {
         this.ROOT = root;
     }
 
@@ -96,7 +96,7 @@ public class FileUtils {
      */
     public static String getNameByPath(String path) {
         String fileName = "/file" + path.split("file")[1];
-        System.out.println("文件名为: " + fileName);
+        logger.info("文件名为:[{}]",fileName);
         return fileName;
     }
 }

@@ -1,4 +1,4 @@
-package cn.crabapples.utils.file;
+package cn.crabapples.utils;
 
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
@@ -7,29 +7,28 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Hashtable;
 
 /**
  * TODO 图片工具类
  *
  * @author Mr.He
- * @date 2019/11/16 14:36
- * e-mail wishforyou.xia@gmail.com
+ * 2019/11/16 14:36
+ * e-mail crabapples.cn@gmail.com
  * qq 294046317
  * pc-name 29404
  */
-@Component
-public class ImageUtils {
-    private static final Logger logger = LoggerFactory.getLogger(ImageUtils.class);
+public class QrCodeUtils {
+    private static final Logger logger = LoggerFactory.getLogger(QrCodeUtils.class);
     /**
      * @param outputStream 文件输出流路径
      * @param content      二维码携带信息
@@ -43,7 +42,7 @@ public class ImageUtils {
         logger.info("开始生成二维码,内容[{}]",content);
         //设置二维码纠错级别ＭＡＰ
         Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
-        hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);  // 矫错级别
+        hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);  // 矫错级别
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         //创建比特矩阵(位矩阵)的QR码编码的字符串
         BitMatrix byteMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, qrCodeSize, qrCodeSize, hintMap);
@@ -94,19 +93,5 @@ public class ImageUtils {
             logger.error("识别二维码时出现异常:[]",e);
             throw e;
         }
-    }
-
-    /**
-     * 压缩图片
-     *
-     * @param file 原路径
-     * @param newFile 新路径
-     * @param number 压缩比例
-     * @throws IOException
-     */
-    public static void compressionImage(File file, File newFile,float number) throws IOException {
-        logger.info("开始压缩图片,原图片[{}],新图片[{}],压缩比例[{}]",file.getPath(),newFile.getPath(),number);
-        Thumbnails.of(file).scale(1f).outputQuality(number).toFile(newFile);
-        logger.info("图片压缩完成,新图片路径[{}],压缩比例[{}]",newFile.getPath(),number);
     }
 }

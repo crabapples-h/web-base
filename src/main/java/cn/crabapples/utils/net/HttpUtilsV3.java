@@ -1,7 +1,6 @@
 package cn.crabapples.utils.net;
 
-
-import cn.crabapples.utils.random.CreateRandomUtil;
+import cn.crabapples.utils.IdUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +29,7 @@ public class HttpUtilsV3 {
     private static final Map<String, String> HEADER = new TreeMap<String, String>();
     private static final int CONN_TIMEOUT = 30000;    //链接超时时间
     private static final int READ_TIMEOUT = 30000;    //响应超时时间
-    private static final String boundary = CreateRandomUtil.getRandom(15); //随机种子
+    private static final String boundary = IdUtils.getRandomString(15); //随机种子
 
     static {
         HEADER.put("Accept", "*/*");

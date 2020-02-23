@@ -1,6 +1,5 @@
 package cn.crabapples.utils.demo.wechat;
 
-import cn.crabapples.utils.encode.SignUtils;
 import cn.crabapples.utils.net.HttpUtilsV2;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;

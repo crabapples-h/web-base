@@ -1,8 +1,7 @@
 package success;
 
-import cn.crabapples.utils.file.FileUtils;
+import cn.crabapples.utils.file.FileSaveUtils;
 import org.apache.http.entity.ContentType;
-import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +21,7 @@ import java.io.IOException;
 public class FileUtilsTest {
     /**
      * 单元测试方 FileUtils.saveFile
-     * @see cn.crabapples.utils.file.FileUtils
+     * @see FileSaveUtils
      * @throws IOException
      */
 //    @Test
@@ -31,7 +30,7 @@ public class FileUtilsTest {
         FileInputStream fileInputStream = new FileInputStream(file);
         MultipartFile multipartFile = new MockMultipartFile(file.getName(), file.getName(),
                 ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
-        String i = new FileUtils("d:/1/").saveFile(multipartFile);
+        String i = new FileSaveUtils("d:/1/").saveFile(multipartFile);
         System.err.println(i);
     }
 }
