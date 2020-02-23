@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * TODO 字符串工具类
@@ -16,6 +18,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public class StringUtils {
     private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    private static final char[] chars = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
     /**
      * 将字符串首字母转换为大写
      * @param source 需要转换的字符串
@@ -114,6 +119,29 @@ public class StringUtils {
         return buf.toString();
     }
 
-    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    /**
+     * 获取随机数字和字母的随机组合(大写),长度为参数
+     *
+     * @param length 需要获取的随机数长度
+     * @return 随机字符串，长度为length
+     */
+    public static String getRandomString(int length) {
+        logger.debug("开始生成随机字符串，共[{}]位", length);
+        Random ran = new Random();
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            str.append(chars[ran.nextInt(26)]);
+        }
+        logger.debug("随机字符串生成完毕:[{}]", str.toString());
+        return str.toString();
+    }
+
+    /**
+     * 获取不带横线的UUID
+     * @return uuid
+     */
+    public static String getUUID() {
+        return UUID.randomUUID().toString().replace("-","");
+    }
 
 }

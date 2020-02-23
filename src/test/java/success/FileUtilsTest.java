@@ -1,6 +1,6 @@
 package success;
 
-import cn.crabapples.utils.file.FileSaveUtils;
+import cn.crabapples.utils.FileSaveUtils;
 import org.apache.http.entity.ContentType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
