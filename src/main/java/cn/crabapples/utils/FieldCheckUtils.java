@@ -12,7 +12,7 @@ import java.util.*;
  * TODO 属性验证工具(对属性进行匹配，不区分大小写‘)
  *
  * @author Mr.He
- * @date 2018/9/27 4:31:27
+ * 2018/9/27 4:31:27
  * e-mail wishforyou.xia@gmail.com
  * qq 294046317
  * pc-name 29404

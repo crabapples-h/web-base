@@ -12,7 +12,7 @@ import java.util.UUID;
  * TODO 字符串工具类
  *
  * @author Mr.He
- * @date 2019/7/23 23:16
+ * 2019/7/23 23:16
  * e-mail wishforyou.xia@gmail.com
  * pc-name 29404
  */

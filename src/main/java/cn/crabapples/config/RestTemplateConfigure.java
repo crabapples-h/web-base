@@ -10,12 +10,12 @@ import org.springframework.web.client.RestTemplate;
  * TODO RestTemplate配置类
  *
  * @author Mr.He
- * @date 2019/7/21 14:47
+ * 2019/7/21 14:47
  * e-mail wishforyou.xia@gmail.com
  * pc-name 29404
  */
 @Configuration
-public class RestTemplateConfig {
+public class RestTemplateConfigure {
     /**
      * 开启负载均衡
      */

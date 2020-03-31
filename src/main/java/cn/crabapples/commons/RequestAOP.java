@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * TODO 请求切面拦截
  *
  * @author Mr.He
- * @date 2019/11/14 21:34
+ * 2019/11/14 21:34
  * e-mail wishforyou.xia@gmail.com
  * qq 294046317
  * pc-name 29404
@@ -26,31 +26,35 @@ import java.lang.reflect.Method;
 @Order(50)
 public class RequestAOP {
     private static final Logger logger = LoggerFactory.getLogger(RequestAOP.class);
-    private static final String BASE_AOP = "execution(* cn.crabapples.*.controller.*.*(..))";
-    private static final String ALL_AOP = "execution(* *.*.*.controller.*.*(..))";
-    @Pointcut(BASE_AOP)
-    public void baseAop(){}
-    @Pointcut(ALL_AOP)
-    public void allAop(){}
+    private static final String BASE_CONTROLLER_AOP = "execution(* cn.crabapples.*.controller.*.*(..))";
+    private static final String ALL_CONTROLLER_AOP = "execution(* *.*.*.controller.*.*(..))";
 
-    @Around("baseAop()")
-    Object baseAop(ProceedingJoinPoint join) throws Throwable {
-        logger.debug("baseAop拦截成功");
+    @Pointcut(BASE_CONTROLLER_AOP)
+    public void baseControllerAop() {
+    }
+
+    @Pointcut(ALL_CONTROLLER_AOP)
+    public void allControllerAop() {
+    }
+
+    @Around("baseControllerAop()")
+    Object baseControllerAop(ProceedingJoinPoint join) throws Throwable {
+        logger.debug("接口拦截成功");
         Object[] args = join.getArgs();
         for (Object arg : args) {
-            logger.debug("请求参数:【{}】",arg);
+            logger.debug("请求参数:【{}】", arg);
         }
         Object obj = join.proceed();
-        logger.debug("返回值:【{}】",obj);
+        logger.debug("返回值:【{}】", obj);
         MethodSignature methodSignature = (MethodSignature) join.getSignature();
         Method method = methodSignature.getMethod();
-        logger.debug("被调用的方法:【{}】",method);
+        logger.debug("被调用的方法:【{}】", method);
         return obj;
     }
 
-    @Around("allAop()")
-    Object allAop(ProceedingJoinPoint join) throws Throwable {
-        logger.debug("allAop拦截成功");
+    @Around("allControllerAop()")
+    Object allControllerAop(ProceedingJoinPoint join) throws Throwable {
+        logger.debug("通用拦截成功");
         return join.proceed();
     }
 }

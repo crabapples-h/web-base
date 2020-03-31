@@ -1,9 +1,13 @@
 package cn.crabapples.entity;
 
-
-
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,48 +16,48 @@ import java.time.LocalDateTime;
  * TODO 实体类基础属性
  *
  * @author Mr.He
- * @date 2019/7/21 15:02
+ * 2019/7/21 15:02
  * e-mail wishforyou.xia@gmail.com
  * pc-name 29404
  */
+@Getter
+@Setter
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
+    /**
+     * Id uuid主键
+     * GeneratedValue 自增长
+     */
     @Id
+    @Column(length = 64)
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(length = 64)
     private String id;
-    @Column(columnDefinition = "bit(1) default 0 comment '删除标记 0:正常，1:删除'")
-    private int deleteFlag;
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP comment '创建时间'")
+
+    /**
+     * 创建时间
+     * columnDefinition 设置默认值为当前时间
+     */
+    @Column(columnDefinition = "timestamp default current_timestamp comment '创建时间'")
+    @CreatedDate
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss E")
     private LocalDateTime createTime;
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP comment '修改时间'")
+
+    /**
+     * 更新时间
+     * columnDefinition 设置默认值为当前时间，随每次更新数据时更新时间
+     */
+    @Column(columnDefinition = "timestamp default current_timestamp on update current_timestamp comment '修改时间'")
+    @LastModifiedDate
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss E")
     private LocalDateTime updateTime;
 
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-    public int getDeleteFlag() {
-        return deleteFlag;
-    }
-    public void setDeleteFlag(int deleteFlag) {
-        this.deleteFlag = deleteFlag;
-    }
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
+    /**
+     * 删除标记 (0:正常 1:删除)
+     */
+    @Column(columnDefinition = "bit(1) default 0 not null comment '删除标记'")
+    private int delFlag;
 
     @Override
     public String toString() {

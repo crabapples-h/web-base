@@ -22,7 +22,7 @@ import com.google.gson.Gson;
  * TODO 火车票查询测试类
  *
  * @author Mr.He
- * @date 2019/11/17 3:36
+ * 2019/11/17 3:36
  * e-mail wishforyou.xia@gmail.com
  * qq 294046317
  * pc-name 29404

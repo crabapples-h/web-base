@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
  * TODO 基础请求参数
  *
  * @author Mr.He
- * @date 2019/7/19 0:31
+ * 2019/7/19 0:31
  * e-mail wishforyou.xia@gmail.com
  * pc-name 29404
  */

@@ -15,13 +15,13 @@ import java.util.List;
  * TODO Web静态资源配置
  *
  * @author Mr.He
- * @date 2019/11/14 21:20
+ * 2019/11/14 21:20
  * e-mail wishforyou.xia@gmail.com
  * qq 294046317
  * pc-name 29404
  */
 @Configuration
-public class WebConfig extends WebMvcConfigurationSupport{
+public class WebConfigure extends WebMvcConfigurationSupport{
 	// 这个方法是用来配置静态资源的，比如html，js，css，等等
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
